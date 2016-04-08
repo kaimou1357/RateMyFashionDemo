@@ -1,11 +1,10 @@
 package com.nyu.mouzhang.ratemyfashiondemo.Adapter;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.nyu.mouzhang.ratemyfashiondemo.TabFragment;
+import com.nyu.mouzhang.ratemyfashiondemo.Controller.TabFragment;
 
 /**
  * Created by kai on 4/8/16.

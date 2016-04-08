@@ -6,14 +6,14 @@ package com.nyu.mouzhang.ratemyfashiondemo.Model;
 public class Recommendation {
     private String description1;
     private String description2;
-    private int photoID;
+    private int photoLink;
 
-    public int getPhotoID() {
-        return photoID;
+    public int getPhotoLink() {
+        return photoLink;
     }
 
-    public void setPhotoID(int photoID) {
-        this.photoID = photoID;
+    public void setPhotoLink(int photoLink) {
+        this.photoLink = photoLink;
     }
 
     public String getDescription1() {
@@ -32,9 +32,9 @@ public class Recommendation {
         this.description2 = description2;
     }
 
-    public Recommendation(String d1, String d2, int photoID){
+    public Recommendation(String d1, String d2, int photoLink){
         description1 = d1;
         description2 = d2;
-        this.photoID = photoID;
+        this.photoLink = photoLink;
     }
 }

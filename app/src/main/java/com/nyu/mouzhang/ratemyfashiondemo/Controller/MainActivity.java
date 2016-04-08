@@ -1,14 +1,20 @@
-package com.nyu.mouzhang.ratemyfashiondemo;
+package com.nyu.mouzhang.ratemyfashiondemo.Controller;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.design.widget.SwipeDismissBehavior;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.SurfaceHolder;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +22,7 @@ import android.view.MenuItem;
 import com.nyu.mouzhang.ratemyfashiondemo.Adapter.RecommendationListAdapter;
 import com.nyu.mouzhang.ratemyfashiondemo.Adapter.ViewPagerAdapter;
 import com.nyu.mouzhang.ratemyfashiondemo.Model.Recommendation;
+import com.nyu.mouzhang.ratemyfashiondemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,15 +83,35 @@ public class MainActivity extends AppCompatActivity{
          */
         RecyclerView recommendationList = (RecyclerView) findViewById(R.id.recommendationCardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        recList.add(new Recommendation("test", "test", R.drawable.placeholder));
-        recList.add(new Recommendation("hi", "there", R.drawable.placeholder));
-        recList.add(new Recommendation("asdasdt", "lol", R.drawable.placeholder));
-        recList.add(new Recommendation("asdasd", "dfgdfg", R.drawable.placeholder));
+        recList.add(new Recommendation("Socks", "Sold at Macy's", R.drawable.socks));
+        recList.add(new Recommendation("Bag", "Sold at Michael Kors", R.drawable.bag));
+        recList.add(new Recommendation("Shirt", "Sold at H&M", R.drawable.stock));
+        recList.add(new Recommendation("Pants", "Sold at Forever 21", R.drawable.stock2));
 
-        RecommendationListAdapter adapter = new RecommendationListAdapter(recList);
+        final RecommendationListAdapter adapter = new RecommendationListAdapter(recList, getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recommendationList.setAdapter(adapter);
         recommendationList.setLayoutManager(llm);
+
+        ItemTouchHelper swipeToDismissTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                // callback for drag-n-drop, false to skip this feature
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // callback for swipe to dismiss, removing item from data and adapter
+
+                recList.remove(viewHolder.getAdapterPosition());
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        });
+        swipeToDismissTouchHelper.attachToRecyclerView(recommendationList);
+
+
 
 
     }
@@ -144,6 +171,12 @@ public class MainActivity extends AppCompatActivity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if(id == R.id.add_picture){
+            Intent i = new Intent(this, CameraActivity.class);
+            startActivity(i);
+
+
+        }
 
         //noinspection SimplifiableIfStatement
 
