@@ -1,23 +1,24 @@
 package com.nyu.mouzhang.ratemyfashiondemo;
 
-import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.view.Surface;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.nyu.mouzhang.ratemyfashiondemo.Adapter.RecommendationListAdapter;
+import com.nyu.mouzhang.ratemyfashiondemo.Adapter.ViewPagerAdapter;
+import com.nyu.mouzhang.ratemyfashiondemo.Model.Recommendation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
     final static String USERNAME = "admin";
@@ -27,18 +28,64 @@ public class MainActivity extends AppCompatActivity{
     private MediaPlayer mediaPlayer;
     private SurfaceHolder surfaceHolder;
 
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
+
+    private List<Recommendation> recList = new ArrayList<Recommendation>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        //viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        //viewPager.setAdapter(viewPagerAdapter);
         setSupportActionBar(toolbar);
+
+        final TabLayout.Tab closet = tabLayout.newTab();
+        final TabLayout.Tab recommendations = tabLayout.newTab();
+
+        closet.setText("Closet");
+        recommendations.setText("Recommendations");
+
+        tabLayout.addTab(recommendations, 0);
+        tabLayout.addTab(closet, 1);
+
+
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.indicator));
+
 
 //        SurfaceView surfaceView = (SurfaceView)findViewById(R.id.surfaceview);
 //        surfaceHolder = surfaceView.getHolder();
 //        surfaceHolder.addCallback(this);
 //        surfaceHolder.setFixedSize(320, 240);
+        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
+        /* Go ahead with the RecyclerView mock up
+
+         */
+        RecyclerView recommendationList = (RecyclerView) findViewById(R.id.recommendationCardList);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recList.add(new Recommendation("test", "test", R.drawable.placeholder));
+        recList.add(new Recommendation("hi", "there", R.drawable.placeholder));
+        recList.add(new Recommendation("asdasdt", "lol", R.drawable.placeholder));
+        recList.add(new Recommendation("asdasd", "dfgdfg", R.drawable.placeholder));
+
+        RecommendationListAdapter adapter = new RecommendationListAdapter(recList);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recommendationList.setAdapter(adapter);
+        recommendationList.setLayoutManager(llm);
+
 
     }
 //    @Override
