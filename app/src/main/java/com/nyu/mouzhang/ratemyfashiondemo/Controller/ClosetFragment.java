@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
+import com.nyu.mouzhang.ratemyfashiondemo.Adapter.ImageAdapter;
 import com.nyu.mouzhang.ratemyfashiondemo.R;
 
 /**
@@ -14,6 +16,9 @@ import com.nyu.mouzhang.ratemyfashiondemo.R;
 public class ClosetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        return inflater.inflate(R.layout.recommendation_fragment, container,false );
+        View v = inflater.inflate(R.layout.closet_fragment, container,false );
+        GridView gridView = (GridView)v.findViewById(R.id.gridview);
+        gridView.setAdapter(new ImageAdapter(getContext()));
+        return v;
     }
 }

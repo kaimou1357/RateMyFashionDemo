@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+
         /* Go ahead with the RecyclerView mock up
 
          */
@@ -98,7 +101,12 @@ public class MainActivity extends AppCompatActivity{
 //        swipeToDismissTouchHelper.attachToRecyclerView(recommendationList);
 
     }
-
+    public void switchContent(int id, Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(id, fragment, fragment.toString());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 
 
     @Override

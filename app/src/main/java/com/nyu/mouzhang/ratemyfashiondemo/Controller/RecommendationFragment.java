@@ -34,6 +34,7 @@ public class RecommendationFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recommendationList.setAdapter(adapter);
         recommendationList.setLayoutManager(llm);
+
         return v;
 
     }

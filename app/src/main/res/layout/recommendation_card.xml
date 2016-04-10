@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="225dp"
             android:scaleType="centerCrop"
+            android:transitionName="profile"
             app:riv_corner_radius_bottom_left="0dp"
             app:riv_corner_radius_bottom_right="0dp"
             app:riv_corner_radius_top_left="4dp"
@@ -37,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/description1"
+                android:transitionName="profile"
                 android:textColor="@color/grey_700"
                 android:textSize="18sp" />
 
@@ -44,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/description2"
+                android:transitionName="profile"
                 android:textColor="@color/grey_500"
                 android:textSize="14sp" />
 
